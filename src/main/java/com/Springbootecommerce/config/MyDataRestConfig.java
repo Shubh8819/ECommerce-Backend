@@ -1,8 +1,10 @@
 package com.Springbootecommerce.config;
 
 
+import com.Springbootecommerce.Entity.Country;
 import com.Springbootecommerce.Entity.Product;
 import com.Springbootecommerce.Entity.ProductCategory;
+import com.Springbootecommerce.Entity.State;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.metamodel.EntityType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,16 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
                 .forDomainType(ProductCategory.class)
                 .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
                 .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
+
+        config.getExposureConfiguration().forDomainType(Country.class).
+                                            withItemExposure((metdata, httpMethods) ->
+                                            httpMethods.disable(theUnsupportedActions)).
+                                            withCollectionExposure((metdata, httpMethods) ->
+                                                    httpMethods.disable(theUnsupportedActions));
+
+        config.getExposureConfiguration().forDomainType(State.class)
+                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions)).
+                withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
 
         // call an internal helper method
         exposeIds(config);
